@@ -24,6 +24,7 @@ import io.socket.emitter.Emitter;
 public class Chat extends AppCompatActivity implements View.OnClickListener {
 
     private String URL = "http://a22kevburcacchat.dam.inspedralbes.cat:3270";
+    private String user="";
 
 
     private Socket mSocket;
@@ -39,7 +40,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_chat);
 
 
-        String user = getIntent().getStringExtra("user");
+        user = getIntent().getStringExtra("user");
 
         Toast toast = Toast.makeText(this,"Usuario: "+user,Toast.LENGTH_SHORT);
         toast.show();
@@ -81,9 +82,11 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         //Agafem el text del edittext
         EditText et = findViewById(R.id.txtInput);
         String missatge = et.getText().toString();
+
+        String userM = user+": "+missatge;
         //Netejem el EditText
         et.setText("");
         //Enviem el emit
-        mSocket.emit("chat message", missatge);
+        mSocket.emit("chat message", userM);
     }
 }
